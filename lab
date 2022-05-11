@@ -1,0 +1,67 @@
+declare
+id number:=12;
+begin
+id:=12/0;
+end;
+/
+----------------
+declare
+id number:=12;
+begin
+id:=12/0;
+exception
+when zero_divide then
+dbms_output.put_line('divide by zero');
+end;
+/
+---------------
+declare
+num number:=&num;
+begin
+dbms_output.put_line('square root '||num||'is'||sqrt(num));
+exception
+when value_error then
+dbms_output.put_line('value error');
+end;
+/
+----------------
+declare
+sid number:=22;
+sname varchar2(20):='ravi';
+rating number:=6;
+age number:=56;
+begin
+insert into sailors values(sid,sname,rating,age);
+exception
+where dup_val_on_index then
+dbms_output.put_line('unique constraint violated');
+end;
+/
+------------------
+delcare
+id number:=&id;
+name varchar2(30);
+begin
+select sname into name from sailors where sid=id;
+dbms_output.put_line(name);
+exception
+when no_data_found then
+dbms_output.put_line('no date found');
+end;
+/
+------------------
+declare
+grade char(1):='&grade';
+begin
+case grade
+when 'A' then dbms_output.put_line('excellent');
+when 'B' then dbms_output.put_line('good');
+when 'C' then dbms_output.put_line('Average');
+when 'D' then dbms_output.put_line('poor');
+end case;
+exception
+when case_not_found then
+dbms_output.put_line('case not found');
+end;
+/
+----------------------
